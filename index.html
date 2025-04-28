@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Metaflora</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      z-index: 999;
+    }
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #1e90ff;
+    }
+    .home {
+      padding-top: 100px;
+      text-align: center;
+      color: white;
+      max-width: 700px;
+      margin: 0 auto 50px;
+    }
+    .home h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    .home p {
+      font-size: 20px;
+      line-height: 1.6;
+      color: #e6f4ea;
+    }
+    .info-blocks {
+      display: flex;
+      justify-content: space-between;
+      margin: 50px auto;
+      max-width: 900px;
+    }
+    .info-block {
+      background-color: #5f9ea0;
+      border-radius: 10px;
+      width: 30%;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .info-block img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 15px; /* Rounded corners */
+      margin-bottom: 20px;
+    }
+    .info-block h3 {
+      color: #fff;
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+    .info-block p {
+      color: #e6f4ea;
+      font-size: 16px;
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 30px;
+      border-radius: 15px;
+      background-color: #5f9ea0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.7s ease-in;
+      margin: 0 auto 50px;
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    h4 {
+      margin-bottom: 20px;
+      font-size: 26px;
+      color: #d4f7e6;
+      text-align: center;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 8px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    input:focus, textarea:focus {
+      box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.4);
+      background-color: #ffffffee;
+    }
+    textarea {
+      resize: vertical;
+    }
+    #submit {
+      border: none;
+      background-color: #1e90ff;
+      color: white;
+      font-weight: bold;
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    #submit:hover {
+      background-color: #4682b4;
+    }
+    #loading {
+      display: none;
+      text-align: center;
+      color: #d4f7e6;
+      margin-top: 10px;
+    }
+    #toast {
+      visibility: hidden;
+      min-width: 250px;
+      background-color: #48bb78;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      padding: 16px;
+      position: fixed;
+      z-index: 1;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%);
+      transition: all 0.5s ease;
+    }
+    #toast.show {
+      visibility: visible;
+      bottom: 50px;
+      opacity: 1;
+    }
+    @media(max-width: 600px) {
+      .info-blocks {
+        flex-direction: column;
+        align-items: center;
+      }
+      .info-block {
+        width: 80%;
+        margin-bottom: 20px;
+      }
+      .container {
+        padding: 20px;
+        border-radius: 10px;
+      }
+      .home h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#form">Submit Poem</a>
+  </nav>
+
+  <section class="home" id="home">
+    <h1>Welcome to Metaflora Poetry Club 📜</h1>
+    <h3>🏫 SMKN 7 Semarang</h3>
+    <h3>✨ @metaflora_poetry_club</h3>
+    <br>
+    <p>Poetry Club is where feelings find their voice. Raw, real, and unfiltered, we turn silence into verses and emotions into art. Speak your truth. Share your story. This is your space.</p>
+  </section>
+
+  <!-- Information Blocks Section -->
+  <div class="info-blocks">
+    <div class="info-block">
+      <img src="https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcRUUW05rfKzrnFq83lNUrXjtsoMwdDluqxJeat61X_BToBd0xuF9FYnFmOq6g0LXeRU" alt="Poetry Icon">
+      <h3>Speak Your Soul</h3>
+      <p>Let your words carry the weight of your heart. Share your truth, your pain, your joy. Every line matters.</p>
+    </div>
+    <div class="info-block">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPMHNq-wMwYG1Jo1qNbrpFarVw82ICzFQ9nXQeJ2b5brBdbxFG" alt="Community Icon">
+      <h3>Belong Through Words</h3>
+      <p>Join a safe, welcoming space where your voice is heard, your silence respected, and your creativity celebrated.</p>
+    </div>
+    <div class="info-block">
+      <img src="https://t3.gstatic.com/licensed-image?q=tbn:ANd9GcQptlavVEGmQLoeDN7IrO2xNuX7NR8lxQyDbf9weqjK7bDzdfyk1fPHRsxyPNcGHLlX" alt="Inspiration Icon">
+      <h3>Feel. Write. Heal.</h3>
+      <p>Find meaning in moments, beauty in brokenness, and strength in every verse you write.</p>
+    </div>
+  </div>
+
+  <div class="container" id="form">
+    <form method="post" action="" name="contact-form">
+      <h4>Contact Us!📞</h4>
+      <input type="text" name="your-name" placeholder="Name" required>
+      <input type="text" name="your-number" placeholder="Phone Number" required>
+      <input type="email" name="your-email" placeholder="Email Address" required>
+      <textarea name="message" rows="6" placeholder="Your Message or Poems" required></textarea>
+      <input type="submit" value="Submit" id="submit">
+      <div id="loading">⏳ Sending...</div>
+    </form>
+  </div>
+
+  <div id="toast">✅ Message sent successfully!</div>
+
+  <script> 
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyztsFu-8NkngFDk1NqSyEpYk0m8MRp-JcYcNCRy8GKMc16es_BX1ujtosYW5qpKDdB/exec'
+    const form = document.forms['contact-form']
+    const loading = document.getElementById('loading')
+    const toast = document.getElementById('toast')
+
+    form.addEventListener('submit', e => {
+      e.preventDefault()
+      loading.style.display = 'block'
+
+      fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+        .then(response => {
+          loading.style.display = 'none'
+          form.reset()
+          showToast()
+        })
+        .catch(error => {
+          loading.style.display = 'none'
+          alert('Something went wrong. Please try again!')
+          console.error('Error!', error.message)
+        })
+    })
+
+    function showToast() {
+      toast.classList.add('show')
+      setTimeout(() => {
+        toast.classList.remove('show')
+      }, 3000)
+    }
+  </script>
+</body>
+</html>
